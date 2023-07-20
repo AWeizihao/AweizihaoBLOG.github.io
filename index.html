@@ -174,6 +174,373 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/16/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weizihao">
+      <meta itemprop="description" content="Freedom, Liberation, Persistence, Responsibility">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Arcadia">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/16/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-16 21:49:23" itemprop="dateCreated datePublished" datetime="2023-07-16T21:49:23+08:00">2023-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-17 15:40:07" itemprop="dateModified" datetime="2023-07-17T15:40:07+08:00">2023-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="基础数据结构"><a href="#基础数据结构" class="headerlink" title="基础数据结构"></a>基础数据结构</h1><h2 id="1-链表"><a href="#1-链表" class="headerlink" title="1. 链表"></a>1. 链表</h2><p>链表储存的数据在物理上是不连续的，各个数据之间由指针相连。链表的每个数据单元称为节点，链表的每一个节点储存两个指针和一个数据。第一个指针指向上一个节点，第二个指针指向下一个节点，数据则是该节点储存的内容。</p>
+<p>如果省去第一个指针，就是一个<strong>单向链表</strong>，只能单向查询。</p>
+<p>链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素。链表灵活，但是空间和时间额外耗费较大。</p>
+<p>链表通常使用STL list实现，当然也可以手写链表。手写的链表根据内存是否动态分配，分为动态链表和静态链表。动态链表采用动态存储分配，不会造成内存浪费和溢出。</p>
+<h3 id="1-1-静态链表"><a href="#1-1-静态链表" class="headerlink" title="1.1 静态链表"></a>1.1 静态链表</h3><p>我们当然可以使用二维数组实现链表，不过我们这里使用结构体定义链表。</p>
+<h4 id="1-1-1-结构体简介"><a href="#1-1-1-结构体简介" class="headerlink" title="1.1.1 结构体简介"></a>1.1.1 结构体简介</h4><p>C&#x2F;C++ 数组允许定义可存储相同类型数据项的变量，但是<strong>结构</strong>允许用户存储不同类型的数据项。</p>
+<p>假设您想要跟踪图书馆中书本的动态，您可能需要跟踪每本书的下列属性：<br>Title ：标题<br>Author ：作者<br>Subject ：类目<br>Book ID ：书的 ID</p>
+<ul>
+<li><p><strong>定义结构体</strong><br>为了定义结构，您必须使用 struct 语句。struct 语句定义了一个包含多个成员的新的数据类型，struct 语句的格式如下：</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">type_name</span> &#123;</span><br><span class="line">        member_type1 member_name1;</span><br><span class="line">        member_type2 member_name2;</span><br><span class="line">        member_type3 member_name3;</span><br><span class="line">        .</span><br><span class="line">        .</span><br><span class="line">    &#125; object_names;</span><br></pre></td></tr></table></figure>
+<p>  type_name 是结构体类型的名称，member_type1 member_name1 是标准的变量定义，比如 int i; 或者 float f; 或者其他有效的变量定义。</p>
+<p>  在结构定义的末尾，最后一个分号之前，您可以指定<strong>一个或多个结构变量</strong>，这是可选的相当于一个全局的变量定义，当然这个定义也可以放到其他地方。下面是声明一个结构体类型 Books，变量为 book（在全局定义变量book为Book类型）：</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Books</span>&#123;</span><br><span class="line">        <span class="type">char</span>  title[<span class="number">50</span>];</span><br><span class="line">        <span class="type">char</span>  author[<span class="number">50</span>];</span><br><span class="line">        <span class="type">char</span>  subject[<span class="number">100</span>];</span><br><span class="line">        <span class="type">int</span>   book_id;</span><br><span class="line">    &#125; book;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>访问结构体成员</strong><br>如果要访问结构成员，需要用<strong>成员访问运算符（.）</strong>。成员访问运算符是结构变量名称和我们要访问的结构成员之间的一个句号。例如，对于上面的例子，我想知道一本书的book_id，就用下面的方法访问：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">book.book_id</span><br></pre></td></tr></table></figure>
+<p>这可以直接看作一个int类型的变量。例如输入bookid，就可以写成：</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cin &gt;&gt; book.book_id;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>结构体作为参数</strong><br>您可以把结构作为函数参数，传参方式与其他类型的变量或指针类似。您可以使用上面实例中的方式来访问结构变量：</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Books</span>&#123; <span class="comment">// 声明一个结构体类型 Books </span></span><br><span class="line">        <span class="type">char</span>  title[<span class="number">50</span>];</span><br><span class="line">        <span class="type">char</span>  author[<span class="number">50</span>];</span><br><span class="line">        <span class="type">char</span>  subject[<span class="number">100</span>];</span><br><span class="line">        <span class="type">int</span>   book_id;</span><br><span class="line">    &#125;book;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printBook</span><span class="params">( <span class="keyword">struct</span> Books book )</span></span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;书标题 : &quot;</span> &lt;&lt; book.title &lt;&lt;endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;书作者 : &quot;</span> &lt;&lt; book.author &lt;&lt;endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;书类目 : &quot;</span> &lt;&lt; book.subject &lt;&lt;endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;书 ID : &quot;</span> &lt;&lt; book.book_id &lt;&lt;endl;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="1-1-2-双向静态链表实现"><a href="#1-1-2-双向静态链表实现" class="headerlink" title="1.1.2 双向静态链表实现"></a>1.1.2 双向静态链表实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> N 1000000</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="type">int</span> id,pre,next; <span class="comment">//分别是此节点，上一个节点和下一个节点的下标</span></span><br><span class="line">&#125;nodes[N]<span class="comment">//定义在全局的静态分配。</span></span><br><span class="line"><span class="comment">//这里需要注意的是，大静态数组最好在全局定义，如果在函数内部定义可能出现爆栈，因为数组被储存在栈中。</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    nodes[<span class="number">0</span>].next=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;=n;i++)&#123;</span><br><span class="line">            nodes[i].id=i;</span><br><span class="line">            nodes[i].pre=i<span class="number">-1</span>;<span class="comment">//前节点</span></span><br><span class="line">            nodes[i].next=i+<span class="number">1</span>;<span class="comment">//后节点</span></span><br><span class="line">        &#125;</span><br><span class="line">    nodes[n].next=<span class="number">1</span>;</span><br><span class="line">    nodes[<span class="number">0</span>].pre=n; <span class="comment">//首尾相接</span></span><br><span class="line">    <span class="comment">// 至此完成了一个双向链表的初始化</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-动态链表"><a href="#1-2-动态链表" class="headerlink" title="1.2 动态链表"></a>1.2 动态链表</h3><h4 id="1-2-1-箭头算符-gt"><a href="#1-2-1-箭头算符-gt" class="headerlink" title="1.2.1 箭头算符-&gt;"></a>1.2.1 箭头算符<code>-&gt;</code></h4><p>这也是一个成员访问算符，只不过，它要求左端必须是指向类或结构的指针，而右边则是结果或类的成员。例如下面这个结构：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Books</span>&#123; </span><br><span class="line">        <span class="type">char</span>  title[<span class="number">50</span>];</span><br><span class="line">        <span class="type">char</span>  author[<span class="number">50</span>];</span><br><span class="line">        <span class="type">char</span>  subject[<span class="number">100</span>];</span><br><span class="line">        <span class="type">int</span>   book_id;</span><br><span class="line">    &#125;book;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Books *p;</span><br><span class="line">    p-&gt;title=<span class="number">1</span>;<span class="comment">//赋值为1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-2-动态链表实现"><a href="#1-2-2-动态链表实现" class="headerlink" title="1.2.2 动态链表实现"></a>1.2.2 动态链表实现</h4><h3 id="1-3-STL-list"><a href="#1-3-STL-list" class="headerlink" title="1.3 STL list"></a>1.3 STL list</h3><p>STL是Standard Template Library，标准模板库。 STL list是一个封装好的双向链表，相较于vector的连续线性空间，list的好处是每次插入或者删除一个元素，就是配置或者释放一个元素的空间。因此，list对于空间的运用有绝对的精准，一点也不浪费。而且，对于任何位置的元素插入或元素的移除，list永远是常数时间。 List和vector是两个最常被使用的容器。 </p>
+<ul>
+<li><p><strong>list容器的创建</strong><br>根据不同的使用场景，有以下 5 种创建 list 容器的方式供选择。</p>
+<ul>
+<li>1 创建一个没有任何元素的空 list 容器：<br><code>std::list&lt;int&gt; values;</code></li>
+</ul>
+</li>
+</ul>
+<p>和空 array 容器不同，空的 list 容器在创建之后仍可以添加元素，因此创建 list 容器的方式很常用。</p>
+<ul>
+<li>2 创建一个包含 n 个元素的 list 容器：<br><code>std::list&lt;int&gt; values(10);</code></li>
+</ul>
+<p>通过此方式创建 values 容器，其中包含 10 个元素，每个元素的值都为相应类型的默认值（int类型的默认值为 0）。</p>
+<ul>
+<li>3 创建一个包含 n 个元素的 list 容器，并为每个元素指定初始值。例如：<br><code>std::list&lt;int&gt; values(10, 5);</code></li>
+</ul>
+<p>如此就创建了一个包含 10 个元素并且值都为 5 的 values 容器。</p>
+<ul>
+<li><p>4 在已有 list 容器的情况下，通过拷贝该容器可以创建新的 list 容器。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::list&lt;<span class="type">int</span>&gt; <span class="title">value1</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line"><span class="function">std::list&lt;<span class="type">int</span>&gt; <span class="title">value2</span><span class="params">(value1)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>注意，采用此方式，必须保证新旧容器存储的元素类型一致。</p>
+</li>
+<li><p>5 通过拷贝其他类型容器（或者普通数组）中指定区域内的元素，可以创建新的 list 容器。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//拷贝普通数组，创建list容器</span></span><br><span class="line"><span class="type">int</span> a[] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span> &#125;;</span><br><span class="line"><span class="function">std::list&lt;<span class="type">int</span>&gt; <span class="title">values</span><span class="params">(a, a+<span class="number">5</span>)</span></span>; <span class="comment">//拷贝其它类型的容器，创建 list 容器</span></span><br><span class="line">std::array&lt;<span class="type">int</span>,5&gt; arr&#123; <span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span> &#125;;</span><br><span class="line"><span class="function">std::list&lt;<span class="type">int</span>&gt; <span class="title">values</span><span class="params">(arr.begin()+<span class="number">2</span>, arr.end())</span></span>;<span class="comment">//拷贝arr容器中的&#123;13,14,15&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p><strong>list容器的成员函数</strong><br>表 2 中罗列出了 list 模板类提供的所有成员函数以及各自的功能。</p>
+<table>
+<thead>
+<tr>
+<th>成员函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>begin()</strong></td>
+<td>返回指向容器中第一个元素的双向迭代器。</td>
+</tr>
+<tr>
+<td><strong>end()</strong></td>
+<td>返回指向容器中最后一个元素所在位置的<strong>下一个</strong>位置的双向迭代器。</td>
+</tr>
+<tr>
+<td><strong>front()</strong></td>
+<td>返回第一个元素的引用。</td>
+</tr>
+<tr>
+<td><strong>back()</strong></td>
+<td>返回最后一个元素的引用。</td>
+</tr>
+<tr>
+<td><strong>push_front()</strong></td>
+<td>在容器头部插入一个元素。</td>
+</tr>
+<tr>
+<td><strong>pop_front()</strong></td>
+<td>删除容器头部的一个元素。</td>
+</tr>
+<tr>
+<td><strong>push_back()</strong></td>
+<td>在容器尾部插入一个元素。</td>
+</tr>
+<tr>
+<td><strong>pop_back()</strong></td>
+<td>删除容器尾部的一个元素。</td>
+</tr>
+<tr>
+<td><strong>sort()</strong></td>
+<td>通过更改容器中元素的位置，将它们进行排序。</td>
+</tr>
+<tr>
+<td>empty()</td>
+<td>判断容器中是否有元素，若无元素，则返回 true；反之，返回 false。</td>
+</tr>
+<tr>
+<td><strong>size()</strong></td>
+<td>返回当前容器实际包含的元素个数。</td>
+</tr>
+<tr>
+<td>max_size()</td>
+<td>返回容器所能包含元素个数的最大值。这通常是一个很大的值，一般是 232-1，所以我们很少会用到这个函数。</td>
+</tr>
+<tr>
+<td><strong>assign()</strong></td>
+<td>用新元素替换容器中原有内容。</td>
+</tr>
+<tr>
+<td><strong>insert()</strong></td>
+<td>在容器中的指定位置插入元素。</td>
+</tr>
+<tr>
+<td><strong>erase()</strong></td>
+<td>删除容器中一个或某区域内的元素。</td>
+</tr>
+<tr>
+<td><strong>swap()</strong></td>
+<td>交换两个容器中的元素，必须保证这两个容器中存储的元素类型是相同的。</td>
+</tr>
+<tr>
+<td><strong>clear()</strong></td>
+<td>删除容器存储的所有元素。</td>
+</tr>
+<tr>
+<td><strong>unique()</strong></td>
+<td>删除容器中相邻的重复元素，只保留一个。</td>
+</tr>
+<tr>
+<td>merge()</td>
+<td>合并两个事先已排好序的 list 容器，并且合并之后的 list 容器依然是有序的。</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>反转容器中元素的顺序。</td>
+</tr>
+<tr>
+<td>rbegin()</td>
+<td>返回指向最后一个元素的反向双向迭代器。</td>
+</tr>
+<tr>
+<td>rend()</td>
+<td>返回指向第一个元素所在位置前一个位置的反向双向迭代器。</td>
+</tr>
+<tr>
+<td>cbegin()</td>
+<td>和 begin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。</td>
+</tr>
+<tr>
+<td>cend()</td>
+<td>和 end() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。</td>
+</tr>
+<tr>
+<td>crbegin()</td>
+<td>和 rbegin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。</td>
+</tr>
+<tr>
+<td>crend()</td>
+<td>和 rend() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。</td>
+</tr>
+<tr>
+<td>emplace_front()</td>
+<td>在容器头部生成一个元素。该函数和 push_front() 的功能相同，但效率更高。</td>
+</tr>
+<tr>
+<td>emplace_back()</td>
+<td>在容器尾部直接生成一个元素。该函数和 push_back() 的功能相同，但效率更高。</td>
+</tr>
+<tr>
+<td>emplace()</td>
+<td>在容器中的指定位置插入元素。该函数和 insert() 功能相同，但效率更高。</td>
+</tr>
+<tr>
+<td>resize()</td>
+<td>调整容器的大小。</td>
+</tr>
+<tr>
+<td>splice()</td>
+<td>将一个 list 容器中的元素插入到另一个容器的指定位置。</td>
+</tr>
+<tr>
+<td>remove(val)</td>
+<td>删除容器中所有等于 val 的元素。</td>
+</tr>
+<tr>
+<td>remove_if()</td>
+<td>删除容器中满足条件的元素。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>如下代码演示了表中部分成员函数的用法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//创建空的 list 容器</span></span><br><span class="line">    list&lt;<span class="type">double</span>&gt; values;</span><br><span class="line">    <span class="comment">//向容器中添加元素</span></span><br><span class="line">    values.<span class="built_in">push_back</span>(<span class="number">3.1</span>);</span><br><span class="line">    values.<span class="built_in">push_back</span>(<span class="number">2.2</span>);</span><br><span class="line">    values.<span class="built_in">push_back</span>(<span class="number">2.9</span>);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;values size：&quot;</span> &lt;&lt; values.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//对容器中的元素进行排序</span></span><br><span class="line">    values.<span class="built_in">sort</span>();</span><br><span class="line">    <span class="comment">//使用迭代器输出list容器中的元素</span></span><br><span class="line">    <span class="keyword">for</span> (list&lt;<span class="type">double</span>&gt;::iterator it = values.<span class="built_in">begin</span>(); it != values.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">        std::cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">values size：3</span><br><span class="line">2.2 2.9 3.1</span><br></pre></td></tr></table></figure>
+
+<h4 id="迭代器iterator"><a href="#迭代器iterator" class="headerlink" title="迭代器iterator"></a>迭代器iterator</h4><p>迭代器iterator是C++ STL的组件之一，作用是用来遍历容器，而且是<strong>通用的</strong>遍历容器元素的方式，无论容器是基于什么数据结构实现的，尽管不同的数据结构，遍历元素的方式不一样，但是用迭代器遍历不同容器的代码是完全一样的。</p>
+<p>迭代器的定义非常简单：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iterator&gt;</span></span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt;::iterator it1=vec1.<span class="built_in">begin</span>(); <span class="comment">//创建了vector容器的一个迭代器，初始化为容器的第一个元素的指针</span></span><br><span class="line">list&lt;<span class="type">double</span>&gt;::iterator it2=node.<span class="built_in">begin</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(vector&lt;<span class="type">int</span>&gt;::iterator it=vec.<span class="built_in">begin</span>();it!=vec.<span class="built_in">end</span>();it++)&#123;</span><br><span class="line">    ···<span class="comment">//注意结束条件是不等于，而不是小于，因为对于list这种容器，其储存是不连续的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/16/%E5%89%8D%E7%BC%80%E5%92%8C%E5%92%8C%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weizihao">
+      <meta itemprop="description" content="Freedom, Liberation, Persistence, Responsibility">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Arcadia">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/16/%E5%89%8D%E7%BC%80%E5%92%8C%E5%92%8C%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-07-16 10:17:01 / Modified: 14:37:45" itemprop="dateCreated datePublished" datetime="2023-07-16T10:17:01+08:00">2023-07-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>###1  复杂度</p>
+<ul>
+<li><p>算法的时间复杂度是指算法运行所需要的时间，空间复杂度则指算法占用的内存大小。<br>时间复杂度一般采用大O记法。</p>
+<h4 id="1-时间的复杂度大O记法"><a href="#1-时间的复杂度大O记法" class="headerlink" title="1. 时间的复杂度大O记法"></a>1. 时间的复杂度大O记法</h4><p>对于一行代码，我们令其运行的时间的<strong>量级</strong>是1.故一循环n次的循环，运行时间就<strong>量级</strong>是n。假如存在循环嵌套，就记为$n^2$。</p>
+<p>我们把这些时间加起来，汇成一个关于循环次数n的函数$f(n)$（假设所有循环都是n次）。显然对于一个简单的循环嵌套。$f(n)&#x3D;n^2$。当然，假如这个程序还存在其他部分，也要把时间加起来。例如，我们最后得到一个程序的运行时间$f(n)&#x3D;5n^3+2n^2+20$。</p>
+<p>这个时候，我们遵循下面的改写规则：</p>
+<ul>
+<li><strong>只记最高次项</strong></li>
+<li><strong>不计系数</strong></li>
+</ul>
+<p>于是有:$$f(n)\sim n^3$$此时，可以改用大$O$记法，即记这个算法的时间复杂度为$O(n^3)$<br>下面介绍一些常见的时间复杂度。</p>
+<h5 id="1-1-常数阶复杂度-O-1"><a href="#1-1-常数阶复杂度-O-1" class="headerlink" title="1.1 常数阶复杂度$O(1)$"></a>1.1 常数阶复杂度$O(1)$</h5><p>如果所有代码都只执行一遍，那么其运行时间就是每行代码时间相加，所以$f(n)&#x3D;C$。但是在等价时，无论C如何取值，我们一律记作$O(1)$。<br>例如，下面的代码就是$O(1)$复杂度：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">read_a_number</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;</span><br><span class="line">  <span class="keyword">register</span> inn;</span><br><span class="line">  inn=<span class="built_in">getchar</span>();</span><br><span class="line">  <span class="keyword">if</span>(inn&gt;=<span class="string">&quot;0&quot;</span>&amp;&amp;inn&lt;=<span class="string">&quot;9&quot;</span>)   a=inn-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>常数阶代码中不包含循环。</p>
+<h5 id="1-2-线性阶复杂度-O-n"><a href="#1-2-线性阶复杂度-O-n" class="headerlink" title="1.2 线性阶复杂度$O(n)$"></a>1.2 线性阶复杂度$O(n)$</h5><p>这是程序中存在（无嵌套的）循环的情况。</p>
+<h5 id="1-3-对数阶复杂度-O-text-log-n"><a href="#1-3-对数阶复杂度-O-text-log-n" class="headerlink" title="1.3 对数阶复杂度$O(\text{log}n)$"></a>1.3 对数阶复杂度$O(\text{log}n)$</h5><p>这是当循环变量以指数速度增长时的复杂度，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">count</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">   <span class="type">int</span> count = <span class="number">1</span>; <span class="comment">// 执行一次</span></span><br><span class="line">  <span class="keyword">while</span> (count &lt;= n) &#123; <span class="comment">// 执行logn次</span></span><br><span class="line">      count = count*<span class="number">2</span>; <span class="comment">// 执行logn次</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-4线性对数阶-O-n-text-log-n"><a href="#1-4线性对数阶-O-n-text-log-n" class="headerlink" title="1.4线性对数阶$O(n\text{log}n)$"></a>1.4线性对数阶$O(n\text{log}n)$</h5><p>这也即是把对数阶的代码循环n次。</p>
+<h5 id="1-5-平方阶-O-n-2"><a href="#1-5-平方阶-O-n-2" class="headerlink" title="1.5 平方阶$O(n^2)$"></a>1.5 平方阶$O(n^2)$</h5><p>这是用于循环嵌套的程序。如果两次循环次数不一样，那么就可以表示为$O(m*n)$</p>
+</li>
+</ul>
+<p>###2. 前缀和<br>前缀和，顾名思义，就是一个数组的前n项之和。给定一个数组arr[0…n-1]，我们定义一个新的数组prefix_sum[0…n]，其中prefix_sum[i]表示arr[0]到arr[i]的和，即</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix_sum[i] = arr[<span class="number">0</span>] + arr[<span class="number">1</span>] + ... + arr[i-<span class="number">1</span>] + arr[i]</span><br></pre></td></tr></table></figure>
+
+<p>prefix_sum[0]没有什么意义。</p>
+<h4 id="2-1-应用"><a href="#2-1-应用" class="headerlink" title="2.1 应用"></a>2.1 应用</h4><p>前缀和的意义是什么？前缀和可以帮助我们<strong>快速计算和查询一子数组的和</strong>。</p>
+<p>给定一个数组，我们可能需要多次查询某个范围内元素的和，例如arr[i]到arr[j]的和。如果我们每次查询都重新计算这个和，那么每次查询的时间复杂度将是O(n)，这在查询次数大的情况下会非常低效。</p>
+<p>使用前缀和，我们可以在O(1)的时间复杂度内查询任何子数组的和。这是因为，arr[i]到arr[j]的和可以通过前缀和计算出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum_i_to_j = prefix_sum[j] - prefix_sum[i-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-2-示例"><a href="#2-2-示例" class="headerlink" title="2.2 示例"></a>2.2 示例</h4><p>假设有一个数组arr &#x3D; [1, 2, 3, 4, 5]，我们想要查询子数组arr[1…3]的和。</p>
+<p>首先，我们计算前缀和：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">prefix_sum=[]</span><br><span class="line">tmp=arr[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> arr:</span><br><span class="line">    prefix_sum.append(tmp)</span><br><span class="line">    tmp=tmp+i</span><br><span class="line"><span class="built_in">print</span>(prefix_sum)  <span class="comment"># 输出: [0, 1, 3, 6, 10, 15]</span></span><br></pre></td></tr></table></figure>
+<p>然后，我们可以使用前缀和查询子数组的和：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">1</span></span><br><span class="line">j = <span class="number">3</span></span><br><span class="line">sum_i_to_j = prefix_sum[j] - prefix_sum[i-<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(sum_i_j)  <span class="comment"># 输出: 9</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-差分"><a href="#3-差分" class="headerlink" title="3.差分"></a>3.差分</h3><p>差分可以视为与前缀和互逆。假如数列<code>a=[a1,a2,a3,...,an]</code>，而<code>b=[b1,b2,b3,...,bn]</code>。如果，a是b的前缀和数列，即<code>ai=b1+b2+...+bi</code>，那么就称b是a的<strong>差分数列</strong>，也就是</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bi=ai-<span class="built_in">a</span>(i<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1-区间修改"><a href="#3-1-区间修改" class="headerlink" title="3.1 区间修改"></a>3.1 区间修改</h5><p>先要把[L,R]区间上的a数组全部加上数C。如果直接死算，时间复杂度会有O(n)，但是使用差分，复杂度只有O(1).</p>
+<p>差分的基本方法是由b数组计算a数组。由于关系式<code>ai=b1+b2+...+bi</code>，如果我们对b[L]这一项加上C，那么也就相应地使得i&gt;&#x3D;L的所有ai都加上了C。但是因为存在上界，所以对i&gt;R的部分ai，我们希望保持原样，所以对b[R+1]减去C。代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">add_C</span><span class="params">(<span class="type">int</span> C,<span class="type">int</span> L,<span class="type">int</span> R)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    a[<span class="number">0</span>]=b[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;N;i++)&#123;</span><br><span class="line">        a[i]=a[i<span class="number">-1</span>]+b[i];<span class="comment">//构造前缀和数组a</span></span><br><span class="line">    &#125;</span><br><span class="line">    b[L]+=C;</span><br><span class="line">    b[R+<span class="number">1</span>]-=C;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/17/Introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -534,7 +901,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
