@@ -16,4 +16,14 @@
 ## What I am doing...
 [![Ashutosh's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=AWeizihao&theme=react)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
-🎉 正在学习 JavaScript
+🎉 正在学习 JavaScript和Vue，个人网页开发中！！
+
+## Todo
+
+✅使用hexo搭建个人page： 网址awezihao.github.io自动解析为www.awezihao.top，但域名已过期
+   
+🔲▶️🔜学习Javascript
+
+🔲学习vue
+
+🔲基于vue自行搭建新的个人page
